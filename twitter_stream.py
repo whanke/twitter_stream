@@ -11,6 +11,10 @@ import codecs
 import time
 from datetime import date
 
+consumer_key = "aH7evrTYvs2wkWCMN6yALCHgM"
+consumer_secret = "APOXqQNW4Du6ZKt862hl5JUoyVLg9S1zNBd2rhJA3mf2qa6plb"
+access_key = "284729620-8x2gS2ekZb8NUWc0ByZ0dhzmtKIFGSxK8msw5KhU"
+access_secret = "KEyKqdCuzUnziLpfqfl8v770wgoXBtxXQn0ydytjf4X2a"
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
