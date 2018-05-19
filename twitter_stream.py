@@ -8,6 +8,7 @@ import langid
 import csv
 import codecs
 from urllib3.exceptions import ConnectionError
+from twitter_oauth import access_key, access_secret, consumer_key, consumer_secret
 
 import time
 from datetime import date
