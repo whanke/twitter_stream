@@ -7,6 +7,7 @@ import tweepy
 import langid
 import csv
 import codecs
+from urllib3.exceptions import ConnectionError
 
 import time
 from datetime import date
@@ -40,7 +41,7 @@ class CustomStreamListener(tweepy.StreamListener):
         try:
             lang = langid.classify(status.text)[0]
             if lang == "en":
-                if not status.text.startswith('RT'):
+                if not status.text.startswith('RT'):  # forget all the Retweets
                     writer.writerow((status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text))
         except Exception:
             # Catch any unicode errors while printing to console
@@ -75,5 +76,11 @@ old_date = date.today()
 outfile = codecs.open("tweets-" + str(old_date) + ".txt", "ab", "utf-8")
 writer = csv.writer(outfile, quoting=csv.QUOTE_NONNUMERIC, lineterminator='\n')
 
-
-stream.filter(track=terms)
+while True:
+    try:
+        stream.filter(track=terms)
+    except ConnectionError:
+        # avoid: urllib3.exceptions.ProtocolError: ('Connection broken: IncompleteRead(0 bytes read)', IncompleteRead(0 bytes read))
+        print('ConnectionError on ' + str(time.asctime(time.localtime(time.time()))))
+        logfile.write(str(time.asctime(time.localtime(time.time()))) + ' ConnectionError...' + "\n")
+        continue
