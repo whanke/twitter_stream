@@ -2,6 +2,7 @@
 #
 from twitter_oauth import access_key, access_secret, consumer_key, consumer_secret
 import tweepy
+import pandas as pd
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
@@ -15,12 +16,21 @@ csvFile = open('ua.csv', 'a')
 
 
 def search_tweets_by_hashtag():
-    for tweet in tweepy.Cursor(api.search, q="#unitedAIRLINES", lang="en").items():
+    for tweet in tweepy.Cursor(api.search, q="#RoyalWedding", lang="en", since='2018-05-19', max='2018-05-19').items():
         # WIP/to-do: write to file
         #csvWriter.writerow([status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text.encode('utf-8')])
         print(status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text)
-        return
+        return True
 
+def get_raw_tweet():
+	filepath =
+	for line in open(filepath, encoding='utf-8'):
+        yield json.loads(line)
+
+def get_tweet_in_reply_to_user_id_str():
+	tweet = get_raw_tweet()
+	reply_id = # dataframe identifying reply_id
+	return reply_id
 
 def search_tweets_by_id():
     id_of_tweet = "806179924407107585"
