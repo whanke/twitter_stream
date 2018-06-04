@@ -20,17 +20,23 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Open/Create a file to append data
 #csvFile = open('ua.csv', 'a')
 
+<<<<<<< HEAD
 def get_tweets_by_hashtag_twython():
+=======
+
+
+
+def get_tweets_by_hasttag_twython():
+>>>>>>> 51f8c2f7fd6bbb6c4b3ad7ef5b5cb021663ffabb
     tw = Twython(app_key=consumer_key1,
                  app_secret=consumer_secret1,
                  oauth_token=access_key1,
                  oauth_token_secret=access_secret1)
 
-    search = tw.search(q='#RoyalWedding',  # **supply whatever query you want here**
-                       count=100)
+    search = tw.search(q='#RoyalWedding')  # **supply whatever query you want here**
     tweets = search['statuses']
 
-    save_file = codecs.open("C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweets-hashtag-RoyalWedding-2018-05-19.txt", "ab", encoding="utf-8")
+    save_file = codecs.open("C:\\Users\\Wilm\\Documents\\GitHub\\twitter_stream\\tweets-hashtag-RoyalWedding-2018-05-19.txt", "ab", encoding="utf-8")
     writer = csv.writer(save_file, quoting=csv.QUOTE_NONNUMERIC, lineterminator='\n')
     for tweet in tweets:
         writer.writerow((tweet['created_at'], tweet['id_str'], tweet['in_reply_to_user_id_str'], tweet['text'], '\n'))
@@ -40,21 +46,22 @@ def get_tweets_by_hashtag_twython():
 def get_tweets_by_hashtag(hashtag):
             # lädt nur ein tweet per query
     tweetCount = 0
-    maxTweets = 3000000
+    maxTweets = 1000000
     tweetsPerQry = 100
-    save_file = codecs.open("C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweets-hashtag-RoyalWedding-2018-05-19.txt", "ab", encoding="utf-8")
+    save_file = codecs.open("C:\\Users\\Wilm\\Documents\\GitHub\\twitter_stream\\tweets-hashtag-RoyalWedding-2018-05-19.txt", "ab", encoding="utf-8")
     writer = csv.writer(save_file, quoting=csv.QUOTE_NONNUMERIC, lineterminator='\n')
     while tweetCount < maxTweets:
-        for tweet in tweepy.Cursor(api.search, q=hashtag, count=tweetsPerQry, lang="en", since='2018-05-19', max='2018-05-20').items(1000000):
+        for tweet in tweepy.Cursor(api.search, q=hashtag, count=tweetsPerQry, lang="en", since='2018-05-19').items(1000000):
             # schreibt nur eine reihe / einen tweet !!!!!!!!!!!!!
             if not tweet.text.startswith("RT"):
                 writer.writerow((tweet.created_at, tweet.id_str, tweet.in_reply_to_user_id_str, tweet.text.encode('utf-8')))
+                tweetCount += 1
             # print(status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text)
             return (print("Downloaded {0} tweets".format(tweetCount)))
 
 
 def get_raw_tweet():
-    filepath = "C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweets-2018-05-19.txt"
+    filepath = "C:\\Users\\Wilm\\Documents\\GitHub\\twitter_stream\\tweets-2018-05-19.txt"
     for line in open(filepath, encoding='utf-8'):
         yield json.loads(line)
 
@@ -74,4 +81,12 @@ def search_tweets_by_id():
     return
 
 
+<<<<<<< HEAD
 get_tweets_by_hashtag_twython()
+=======
+
+
+get_tweets_by_hashtag("#RoyalWedding")
+
+#get_tweets_by_hashtag("#RoyalWedding")
+>>>>>>> 51f8c2f7fd6bbb6c4b3ad7ef5b5cb021663ffabb
