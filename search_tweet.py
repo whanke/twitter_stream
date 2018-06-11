@@ -20,10 +20,14 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 # Open/Create a file to append data
 #csvFile = open('ua.csv', 'a')
 
+<<<<<<< HEAD
+def get_tweets_by_hashtag_twython():
+=======
 
 
 
 def get_tweets_by_hasttag_twython():
+>>>>>>> 51f8c2f7fd6bbb6c4b3ad7ef5b5cb021663ffabb
     tw = Twython(app_key=consumer_key1,
                  app_secret=consumer_secret1,
                  oauth_token=access_key1,
@@ -76,8 +80,12 @@ def search_tweets_by_id():
     return
 
 
+<<<<<<< HEAD
+get_tweets_by_hashtag_twython()
+=======
 
 
 get_tweets_by_hashtag("#RoyalWedding")
 
 #get_tweets_by_hashtag("#RoyalWedding")
+>>>>>>> 51f8c2f7fd6bbb6c4b3ad7ef5b5cb021663ffabb
