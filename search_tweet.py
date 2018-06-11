@@ -52,7 +52,6 @@ def get_tweets_by_hashtag(hashtag):
             if not tweet.text.startswith("RT"):
                 writer.writerow((tweet.created_at, tweet.id_str, tweet.in_reply_to_user_id_str, tweet.text.encode('utf-8')))
                 tweetCount += 1
-            # print(status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text)
             return (print("Downloaded {0} tweets".format(tweetCount)))
 
 
