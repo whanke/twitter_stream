@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import glob
 import emoji
@@ -17,16 +18,28 @@ filtered_tweets = "C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\fil
 """
 
 
-def prepare_tweet_file():
-    # wenn zeile mit \n startet -> \n löschen
-    # wenn zeile == \n -> \n löschen
+def strip_tweet_files():
+    # in datei werden alle '\n' gelöscht
     for filename in glob.glob(os.path.join(path, '*.txt')):
-        newfile = filename + '_strip.txt'
+        newfilepath = filename + '_strip.txt'
         with open(filename, encoding="utf-8") as f:
-            for line in f:
-                with open(newfile, "a", encoding="utf-8") as newf:
+            with open(newfilepath, "a", encoding="utf-8") as newf:
+                for line in f:
                     newf.write(line.strip('\n'))
 
+def set_rows_on_tweet_files():
+    for filename in glob.glob(os.path.join(path, '*_strip.txt')):
+        newfile = filename + '_set_rows.txt'
+        with open(filename, 'r+', encoding="utf-8") as f:
+            pattern = re.compile(r'"2018-0\d-\d\d \d\d:\d\d:\d\d","\d*","\d*","(\b|.)*"') # r'"2018-0.*","\d*","\d?",".*"'    
+            matches = pattern.finditer(f.read())
+            with open(newfile, 'a', encoding='utf-8') as newf:
+                for match in matches:
+                   # print(match.group())
+                    tweet = match.group()
+                    newf.writelines(tweet + '\n')
+        
+        
 
 def prepare_one_special_tweet_file(f_name):
     # wenn zeile mit \n startet -> \n löschen
@@ -40,29 +53,17 @@ def prepare_one_special_tweet_file(f_name):
 
 
 def prepare_one_special_tweet_file2(f_name):
-     # "2018-05-26 21:34:58","1000490499814420480","","#WhereAreTheChildren https://t.co/1k4014bXRs"
-     # --> "","",""
-     # --> matchObj = re.match(r'"2018-05-\d\d \d\d:\d\d:\d\d","\d*","\d*",".*"')
+     # funktioniert für eine datei --> für alle vorbereiten
     filename = f_name
     newfile = filename + '_strip2.txt'
-    pattern = re.compile(r'"2018-05-\d\d \d\d:\d\d:\d\d","\d*","\d*","(\b|.)*"', re.UNICODE)
     with open(filename, 'r+', encoding="utf-8") as f:
-        for line in f:
-            matches = pattern.finditer(line)
-            with open(newfile, 'a', encoding='utf-8') as newf:
-                for match in matches:
-                    #newf.write(match.group() + '\n')
-                    print(match.group())
-
-
-def seperate_one_special_tweet_file(f_name):
-    filename = f_name
-    newfile = filename + '_split.txt'
-    with open(filename, 'r+', encoding="utf-8") as f:
-        for line in f:
-            with open(newfile, 'a', encoding='utf-8') as newf:
-                for element in line.split('""'):
-                    newf.write(element)
+        pattern = re.compile(r'"2018-05-\d\d \d\d:\d\d:\d\d","\d*","\d*","(\b|.)*"') # r'"2018-0.*","\d*","\d?",".*"'    
+        matches = pattern.finditer(f.read())
+        with open(newfile, 'a', encoding='utf-8') as newf:
+            for match in matches:
+               # print(match.group())
+                tweet = match.group()
+                newf.writelines(tweet + '\n')
 
 
 def get_tweets_w_emoji():
@@ -85,9 +86,10 @@ def append_char(filename):
             ''.join(line, "\"")
 
 
-# append_char(filtered_tweets)
-# get_tweets_w_emoji()
-# prepare_tweet_file()
-#seperate_one_special_tweet_file('C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweet files\\tweets-2018-05-26.txt_strip.txt')
+strip_tweet_files()
+set_rows_on_tweet_files()
 
-prepare_one_special_tweet_file2('C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweet files\\tweets-2018-05-26.txt_strip.txt')  # funktionert -> file wird in eine einzige zeile geschrieben
+#prepare_one_special_tweet_file2('C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweet files\\tweets-2018-05-26.txt_strip.txt')  # funktionert -> file wird in eine einzige zeile geschrieben
+#with open('C:\\Users\\Wilm Hanke\\Documents\\GitHub\\twitter_stream\\tweet files\\tweets-2018-05-26.txt_strip.txt_strip2.txt', 'r', encoding = 'utf-8') as f:
+#    for line in f:
+#        print(line +'\n')
