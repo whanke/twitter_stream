@@ -17,3 +17,5 @@
 #WorldCup2018
 #GER
 #GERMEX
+#MondayMadness
+#MondayMorning
