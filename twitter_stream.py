@@ -38,7 +38,7 @@ class CustomStreamListener(tweepy.StreamListener):
             lang = langid.classify(status.text)[0]
             if lang == "en":
                 if not status.text.startswith('RT'):  # forget all the Retweets
-                    writer.writerow((status.created_at, status.id_str, status.in_reply_to_user_id_str, status.text.strip()))
+                    writer.writerow((status.created_at, status.id_str, status.in_reply_to_status_id_str, status.text.replace('\n', ' ').replace('\r', '')))
         except Exception:
             # Catch any unicode errors while printing to console
             # and just ignore them to avoid breaking application.
