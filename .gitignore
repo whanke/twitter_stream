@@ -30,3 +30,5 @@ twython-keywords.txt
 tweet files/concat_all_tweets.csv
 *.ini
 test_jupyter_notebook.py
+df_2_vorkommen_emoji_alle.pdf
+df_2_vorkommen_emoji_einzeln.pdf
