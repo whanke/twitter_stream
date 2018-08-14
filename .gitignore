@@ -32,3 +32,5 @@ tweet files/concat_all_tweets.csv
 test_jupyter_notebook.py
 df_2_vorkommen_emoji_alle.pdf
 df_2_vorkommen_emoji_einzeln.pdf
+df_twitter_stream_last_word_category.pdf
+df_twitter_top3_der_top5_single_emoji.pdf
